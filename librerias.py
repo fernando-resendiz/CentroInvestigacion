@@ -6,7 +6,7 @@ def conectar_bd():
         host='localhost',
         user='root',
         passwd='',
-        database='sistema_alumnos_materia_clase'
+        database='CentroInvestigación'
     )
     
     return cone_bd
