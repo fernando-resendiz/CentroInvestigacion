@@ -14,7 +14,7 @@ def menu_principal():
         print("|3) Reportes               |")
         print("|4) Terminar               |")
         print("|==========================|")
-        op = lb.pide_entero(0,6,"Indique la opción deseada: ")
+        op = lb.pide_entero(0,4,"Indique la opción deseada: ")
         
         if op == 1:
             mc.menu_cientificos()
