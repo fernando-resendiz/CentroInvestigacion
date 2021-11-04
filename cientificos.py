@@ -23,9 +23,7 @@ VALUES ('"""+id_ci+"','"+nombre_ci+"','"+ap_ci+"','"+am_ci+"','"+tel_ci+"','"+co
     seguro = seguro.upper()
     print()
 
-    afirmativo = ['Y', 'S', 'YES', 'SI']
-
-    if seguro in afirmativo:
+    if seguro in ['Y', 'S', 'YES', 'SI']:
         try:
             cone_bd = lb.conectar_bd()
             cursor  = cone_bd.cursor()
@@ -75,6 +73,39 @@ def consulta_cientificos():
     cone_bd.close()
     lb.pause()
 
+def cambios_cientificos():
+    lb.clear()
+    print("|==========================|")
+    print("|  CAMBIOS DE CIENTÍFICOS  |")
+    print("|==========================|")
+    id_ci = lb.pide_id(         'Indique el número de empleado [5 dígitos]          : ')
+    tel_ci = lb.pide_telefono(  'Indique el nuevo número telefónico del cientifico  : ')
+    correo_ci = lb.pide_correo( 'Indique el nuevo correo electrónico del científico : ')
+
+    print()
+    query = "UPDATE cientificos SET tel_ci='"+tel_ci+"', correo_ci='"+correo_ci+"' WHERE id_ci='"+id_ci+"'"
+    print(query)
+    print()
+
+    seguro = input("Los datos intruducidos son correctos? [Y/N]: ")
+    seguro = seguro.upper()
+    print()
+
+    if seguro in ['Y', 'S', 'YES', 'SI']:
+        cone_bd = lb.conectar_bd()
+        cursor  = cone_bd.cursor()
+        x = cursor.execute(query)
+        if x == 0:
+            print("Error, el numero de empleado",id_ci,"no existe en la tabla cientificos.")
+        else:
+            cone_bd.commit()
+            print("El cambio ha sido realizado.")
+        cone_bd.close()
+    else:
+        print('La ejecución fue cancelada.')
+    
+    lb.pause()
+
 def menu_cientificos():
     while True:
         lb.clear()
@@ -96,7 +127,7 @@ def menu_cientificos():
         elif op == 3:
             consulta_cientificos()
         elif op == 4:
-            pass
+            cambios_cientificos()
         elif op == 5:
             break
         else:
