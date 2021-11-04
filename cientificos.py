@@ -45,6 +45,36 @@ VALUES ('"""+id_ci+"','"+nombre_ci+"','"+ap_ci+"','"+am_ci+"','"+tel_ci+"','"+co
     
     lb.pause()
 
+def consulta_cientificos():
+    lb.clear()
+    print("|==========================|")
+    print("|   CONSULTA CIENTÍFICOS   |")
+    print("|==========================|")
+    id_ci = lb.pide_id('Indique el número de empleado [5 dígitos]      : ')
+
+    lb.clear()
+    query = "SELECT * FROM `cientificos` WHERE id_ci='"+id_ci+"'"
+    print(query)
+    print()
+
+    cone_bd = lb.conectar_bd()
+    cursor  =cone_bd.cursor()
+    x = cursor.execute(query)
+    if x == 0:
+        print("Error, el numero de empleado",id_ci,"no existe en la tabla cientificos.")
+    else:
+        datos_cientifico = cursor.fetchone()
+        print("=================================================")
+        print("Nombre           :",datos_cientifico[1])
+        print("Apellido Paterno :",datos_cientifico[2])
+        print("Apellido Materno :",datos_cientifico[3])
+        print("Teléfono         :",datos_cientifico[4])
+        print("Correo           :",datos_cientifico[5])
+        print("=================================================")
+        print()
+    cone_bd.close()
+    lb.pause()
+
 def menu_cientificos():
     while True:
         lb.clear()
@@ -64,7 +94,7 @@ def menu_cientificos():
         elif op == 2:
             pass
         elif op == 3:
-            pass
+            consulta_cientificos()
         elif op == 4:
             pass
         elif op == 5:
