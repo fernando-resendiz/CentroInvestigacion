@@ -60,7 +60,7 @@ def pide_correo(msg):
         string = pide_cadena(3,30,msg)
         if '@' in string:
             return string
-        print('Error el correo debe contener el caracter arroba...')
+        print('Error el correo debe contener el caracter @...')
         input()
         
 def clear():
