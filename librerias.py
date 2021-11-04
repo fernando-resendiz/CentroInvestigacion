@@ -39,6 +39,30 @@ def pide_cadena(li, ls, msg):
             return string
         print('Error, la cadena no es de entre',li,'y',ls,'caracteres...')
 
+def pide_id(msg):
+    while True:
+        string = input(msg)
+        if string.isnumeric() and len(string) == 5:
+            return string
+        print('Error id debe estar compuesto por 5 digitos numéricos...')
+        input()
+
+def pide_telefono(msg):
+    while True:
+        string = input(msg)
+        if string.isnumeric() and len(string) == 10:
+            return string
+        print('Error número de teléfono debe estar compuesto por 10 digitos numéricos...')
+        input()
+
+def pide_correo(msg):
+    while True:
+        string = pide_cadena(3,30,msg)
+        if '@' in string:
+            return string
+        print('Error el correo debe contener el caracter arroba...')
+        input()
+        
 def clear():
     os.system('cls' if os.name=='nt' else 'clear')
 
