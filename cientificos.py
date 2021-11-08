@@ -43,6 +43,46 @@ VALUES ('"""+id_ci+"','"+nombre_ci+"','"+ap_ci+"','"+am_ci+"','"+tel_ci+"','"+co
     
     lb.pause()
 
+def bajas_cientificos():
+    lb.clear()
+    print("|==========================|")
+    print("|     BAJAS CIENTÍFICOS    |")
+    print("|==========================|")
+    id_ci = lb.pide_id('Indique el número de empleado que desea eliminar [5 dígitos]: ')
+    
+    cone_bd = lb.conectar_bd()
+    cursor = cone_bd.cursor()
+    x = cursor.execute("SELECT * FROM `proyectos` WHERE id_ci_pro='"+id_ci+"'")
+
+    if x != 0: 
+        lb.clear()
+        print("ERROR, el numero de empleado",id_ci,"no puede ser dado de baja ya que tiene proyectos asignados.")
+        lb.pause()
+        return
+    
+    print()
+    query = "DELETE FROM `cientificos` WHERE id_ci='"+id_ci+"'"
+    print(query)
+    print()
+
+    seguro = input("Está seguro de querer elminar [Y/N]: ")
+    seguro = seguro.upper()
+    print()
+    
+    if seguro in ['Y', 'S', 'YES', 'SI']:
+        x = cursor.execute(query)
+
+        if x == 0:
+            print('ERROR, el numero de empleado no existe en la tabla cientificos.')
+        else:
+            cone_bd.commit()
+            print("El registro se ha eliminado correctamente.")
+        cone_bd.close()
+    else:
+        print("La accion de eliminar ha sido cancelada.")
+    
+    lb.pause()
+
 def consulta_cientificos():
     lb.clear()
     print("|==========================|")
@@ -123,7 +163,7 @@ def menu_cientificos():
         if op == 1:
             altas_cientificos()
         elif op == 2:
-            pass
+            bajas_cientificos()
         elif op == 3:
             consulta_cientificos()
         elif op == 4:
