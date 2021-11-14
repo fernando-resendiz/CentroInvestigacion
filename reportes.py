@@ -81,6 +81,29 @@ def lista_proyectos_area():
     cone_bd.close()
     lb.pause()
 
+def lista_cientificos_area():
+    lb.clear()
+    test = "{:5s}    {:15s}   {:15s}   {:15s}   {:10s}   {:30s}".format(tc, tc, tc, tc, tc, tc)
+    print("|" + "="*len(test) + "|")
+    print("|    LISTA CIENTIFICOS")
+    print("|" + "="*len(test) + "|")
+    area = lb.pide_cadena(1, 15, "Ingrese el area para buscar los cientificos asignados : ")
+    query = "SELECT * FROM cientificos WHERE id_ci IN (SELECT id_ci_pro FROM proyectos  WHERE area_pro='"+area+"')"
+    cone_bd = lb.conectar_bd()
+    cursor = cone_bd.cursor()
+    x =  cursor.execute(query)
+    if x == 0:
+        print("Error, no hay cientificos en la base de datos con el area especificado asignado.")
+    else:
+        print("|" + "="*len(test) + "|")
+        print("|NUMERO   NOMBRE            AP PATERNO        AP MATERNO        TELEFONO     CORREO")
+        print("|" + "="*len(test) + "|")
+        for x in cursor.fetchall():
+            print("|{:5s}    {:15s}   {:15s}   {:15s}   {:10s}   {:30s}|".format(x[0], x[1], x[2], x[3], x[4], x[5]))
+        print("|" + "="*len(test) + "|")
+    cone_bd.close()
+    lb.pause()
+
 def menu_reportes():
     while True:
         lb.clear()
@@ -103,7 +126,7 @@ def menu_reportes():
         elif op == 3:
             lista_proyectos_area()
         elif op == 4:
-            continue
+            lista_cientificos_area()
         elif op == 5:
             continue
         elif op == 6:
