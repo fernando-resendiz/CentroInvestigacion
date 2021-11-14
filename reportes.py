@@ -1,10 +1,34 @@
 import librerias as lb
 
+tc = 'x'
+
+def lista_cientificos():
+    lb.clear()
+    test = "{:5s}    {:15s}   {:15s}   {:15s}   {:10s}   {:30s}".format(tc, tc, tc, tc, tc, tc)
+    print("|" + "="*len(test) + "|")
+    print("|    LISTA CIENTIFICOS")
+    print("|" + "="*len(test) + "|")
+    query = "SELECT * FROM cientificos"
+    cone_bd = lb.conectar_bd()
+    cursor = cone_bd.cursor()
+    x =  cursor.execute(query)
+    if x == 0:
+        print("Error, no hay cientificos en la base de datos.")
+    else:
+        print("|" + "="*len(test) + "|")
+        print("|NUMERO   NOMBRE            AP PATERNO        AP MATERNO        TELEFONO     CORREO")
+        print("|" + "="*len(test) + "|")
+        for x in cursor.fetchall():
+            print("|{:5s}    {:15s}   {:15s}   {:15s}   {:10s}   {:30s}|".format(x[0], x[1], x[2], x[3], x[4], x[5]))
+        print("|" + "="*len(test) + "|")
+    cone_bd.close()
+    lb.pause()
+
 def menu_reportes():
     while True:
         lb.clear()
         print("|===============================================|")
-        print("|     MENU REPORTES                             |")
+        print("|                 MENU REPORTES                 |")
         print("|===============================================|")
         print("|1) Lista de científicos                        |")
         print("|2) Lista de proyectos                          |")
@@ -13,10 +37,10 @@ def menu_reportes():
         print("|5) Lista de proyectos asignados a un cientifico|")
         print("|6) Terminar                                    |")
         print("|===============================================|")
-        op = lb.pide_entero(0,5,"Indique la opción deseada: ")
+        op = lb.pide_entero(0,6,"Indique la opción deseada: ")
         
         if op == 1:
-            continue
+            lista_cientificos()
         elif op == 2:
             continue
         elif op == 3:
