@@ -64,6 +64,7 @@ def pide_correo(msg):
         input()
         
 def clear():
+    print('\n'*100)
     os.system('cls' if os.name=='nt' else 'clear')
 
 def error(msg):
