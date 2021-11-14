@@ -24,6 +24,8 @@ def menu_reportes():
         elif op == 4:
             continue
         elif op == 5:
+            continue
+        elif op == 6:
             break
         else:
             lb.error('Opción no válida.')
