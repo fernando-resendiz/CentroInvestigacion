@@ -1,5 +1,6 @@
 import os
 import pymysql as my
+import math
 
 def conectar_bd():
     cone_bd = my.connect(
@@ -70,3 +71,12 @@ def clear():
 def error(msg):
     print(msg)
     input('Presione [ENTER] para continuar...')
+
+def split_by_char(stringOfChar, number):
+    lengthn = int(math.ceil(len(stringOfChar)/number))
+    justAList = []
+    i = 1
+    while i <= lengthn:
+        justAList.append(stringOfChar[(i-1)*number:i*number])
+        i = i + 1
+    return justAList
