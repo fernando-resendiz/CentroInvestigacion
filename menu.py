@@ -21,7 +21,7 @@ def menu_principal():
         elif op == 2:
             mp.menu_proyectos()
         elif op == 3:
-            mp.menu_proyectos()
+            mr.menu_reportes()
         elif op == 4:
             break
         else:
