@@ -1,6 +1,6 @@
 import librerias as lb
 
-tc = 'x'
+tc = ' '
 
 def lista_cientificos():
     lb.clear()
@@ -24,6 +24,34 @@ def lista_cientificos():
     cone_bd.close()
     lb.pause()
 
+def lista_proyectos():
+    lb.clear()
+    test = "{:5s}    {:15s}   {:15s}   {:40s}       {:5s}        ".format(tc, tc, tc, tc, tc)
+    print("|" + "="*len(test) + "|")
+    print("|    LISTA PROYECTOS")
+    print("|" + "="*len(test) + "|")
+    query = "SELECT * FROM proyectos"
+    cone_bd = lb.conectar_bd()
+    cursor = cone_bd.cursor()
+    x =  cursor.execute(query)
+    if x == 0:
+        print("Error, no hay proyectos en la base de datos.")
+    else:
+        print("|" + "="*len(test) + "|")
+        print("|NUMERO   NOMBRE            AREA              DESCRIPCION                                NUMERO CIENTIFICO")
+        print("|" + "="*len(test) + "|")
+        for x in cursor.fetchall():
+            descripcion = lb.split_by_char(x[3], 40)
+            i = 0
+            while i < len(descripcion)-1:
+                print("|{:5s}    {:15s}   {:15s}   {:40s}       {:5s}        |".format(tc, tc, tc, descripcion[i], tc))
+                i = i + 1
+            print("|{:5s}    {:15s}   {:15s}   {:40s}       {:5s}        |".format(x[0], x[1], x[2], descripcion[-1], x[4]))
+            print("|" + " "*len(test) + "|")
+        print("|" + "="*len(test) + "|")
+    cone_bd.close()
+    lb.pause()
+
 def menu_reportes():
     while True:
         lb.clear()
@@ -42,7 +70,7 @@ def menu_reportes():
         if op == 1:
             lista_cientificos()
         elif op == 2:
-            continue
+            lista_proyectos()
         elif op == 3:
             continue
         elif op == 4:
