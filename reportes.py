@@ -88,7 +88,7 @@ def lista_cientificos_area():
     print("|    LISTA CIENTIFICOS")
     print("|" + "="*len(test) + "|")
     area = lb.pide_cadena(1, 15, "Ingrese el area para buscar los cientificos asignados : ")
-    query = "SELECT * FROM cientificos WHERE id_ci IN (SELECT id_ci_pro FROM proyectos  WHERE area_pro='"+area+"')"
+    query = "SELECT * FROM cientificos WHERE id_ci IN (SELECT id_ci_pro FROM proyectos WHERE area_pro='"+area+"')"
     cone_bd = lb.conectar_bd()
     cursor = cone_bd.cursor()
     x =  cursor.execute(query)
@@ -100,6 +100,35 @@ def lista_cientificos_area():
         print("|" + "="*len(test) + "|")
         for x in cursor.fetchall():
             print("|{:5s}    {:15s}   {:15s}   {:15s}   {:10s}   {:30s}|".format(x[0], x[1], x[2], x[3], x[4], x[5]))
+        print("|" + "="*len(test) + "|")
+    cone_bd.close()
+    lb.pause()
+
+def lista_proyectos_cientifico():
+    lb.clear()
+    test = "{:5s}    {:15s}   {:15s}   {:40s}       {:5s}        ".format(tc, tc, tc, tc, tc)
+    print("|" + "="*len(test) + "|")
+    print("|    LISTA PROYECTOS")
+    print("|" + "="*len(test) + "|")
+    cientifico = lb.pide_cadena(5, 5, "Ingrese el numero de cientifico para buscar sus areas asignadas : ")
+    query = "SELECT * FROM proyectos WHERE id_ci_pro IN (SELECT id_ci FROM cientificos WHERE id_ci='"+cientifico+"')"
+    cone_bd = lb.conectar_bd()
+    cursor = cone_bd.cursor()
+    x =  cursor.execute(query)
+    if x == 0:
+        print("Error, no hay proyectos en la base de datos que esten asignados al cientifico indicado.")
+    else:
+        print("|" + "="*len(test) + "|")
+        print("|NUMERO   NOMBRE            AREA              DESCRIPCION                                NUMERO CIENTIFICO")
+        print("|" + "="*len(test) + "|")
+        for x in cursor.fetchall():
+            descripcion = lb.split_by_char(x[3], 40)
+            i = 0
+            while i < len(descripcion)-1:
+                print("|{:5s}    {:15s}   {:15s}   {:40s}       {:5s}        |".format(tc, tc, tc, descripcion[i], tc))
+                i = i + 1
+            print("|{:5s}    {:15s}   {:15s}   {:40s}       {:5s}        |".format(x[0], x[1], x[2], descripcion[-1], x[4]))
+            print("|" + " "*len(test) + "|")
         print("|" + "="*len(test) + "|")
     cone_bd.close()
     lb.pause()
@@ -128,7 +157,7 @@ def menu_reportes():
         elif op == 4:
             lista_cientificos_area()
         elif op == 5:
-            continue
+            lista_proyectos_cientifico()
         elif op == 6:
             break
         else:
