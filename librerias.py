@@ -1,3 +1,7 @@
+#A01769960 Carlos Eduardo Jiménez Santiago
+#A01769659 Fernando Reséndiz Bautista
+#A01367464 Hlib Korzhynskyy
+
 import os
 import pymysql as my
 import math

@@ -1,3 +1,7 @@
+#A01769960 Carlos Eduardo Jiménez Santiago
+#A01769659 Fernando Reséndiz Bautista
+#A01367464 Hlib Korzhynskyy
+
 import librerias as lb
 
 def altas_proyectos():
@@ -141,7 +145,7 @@ def menu_proyectos():
         print("|3) Consulta de proyectos|")
         print("|4) Cambios de proyectos |")
         print("|5) Terminar             |")
-        print("|==========================|")
+        print("|========================|")
         op = lb.pide_entero(0,5,"Indique la opción deseada: ")
         
         if op == 1:
